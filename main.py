@@ -278,18 +278,18 @@ def main(target: str,
                         subdomain = line.split("\n")[0]
                     if "\n" in line:
                         subdomain = line.split("\n")[1]
-                    if "<" in subdomain:
-                        subdomain = subdomain.split("<")[0]
-                    if "<" in subdomain:
-                        subdomain = subdomain.split("<")[0]
-                    if ">" in subdomain:
-                        subdomain = subdomain.split(">")[1]
-                    if ">" in subdomain:
-                        subdomain = subdomain.split(">")[1]
-                    if "</li>" in subdomain:
-                        subdomain = subdomain.split("</li>")[0]
-                    if "<li>" in subdomain:
-                        subdomain = subdomain.split("<li>")[0]
+                    if "<" in line:
+                        subdomain = line.split("<")[0]
+                    if "<" in line:
+                        subdomain = line.split("<")[0]
+                    if ">" in line:
+                        subdomain = line.split(">")[1]
+                    if ">" in line:
+                        subdomain = line.split(">")[1]
+                    if "</li>" in line:
+                        subdomain = line.split("</li>")[0]
+                    if "<li>" in line:
+                        subdomain = line.split("<li>")[0]
                     crt_subdomains.append(subdomain[:-len(target)-1])
         crt_subdomains = list(set(crt_subdomains))
     except IndexError:
