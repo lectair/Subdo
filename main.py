@@ -323,26 +323,26 @@ def main(target: str,
             subdomains = [x[0][:-len(target)-1] for x in subdomains_mixed if x[1]]
             typer.echo(f"\n> Found {len(subdomains_reachables)}/{subdomain_quantity} reachable subdomains.") if verbose else ""
             typer.echo(subdomains) if verbose else ""'''
-        else:
-            subdomains_reachables = []
-            subdomains_mixed = []
-            subdomain_quantity = len(subdomains)
-            for subdomain in subdomains:
-                if check_reachable(f"{subdomain}.{target}", timeout):
-                    if verbose: typer.echo(f"> {subdomain}.{target} is reachable.")
-                    subdomains_reachables.append(f"{subdomain}")
-                else:
-                    if verbose: typer.echo(f"> {subdomain}.{target} is not reachable.")
-            subdomains_unreachables = [x for x in subdomains if x not in subdomains_reachables]
-            for x in subdomains_reachables:
-                subdomains_mixed.append((x+"."+target, True))
-            for x in subdomains_unreachables:
-                subdomains_mixed.append((x+"."+target, False))
-            subdomains_mixed.sort()
-            subdomains.clear()
-            subdomains = [x[0][:-len(target)-1] for x in subdomains_mixed if x[1]]
-            typer.echo(f"\n> Found {len(subdomains_reachables)}/{subdomain_quantity} reachable subdomains.") if verbose else ""
-            typer.echo(subdomains) if verbose else ""
+        #else:
+        subdomains_reachables = []
+        subdomains_mixed = []
+        subdomain_quantity = len(subdomains)
+        for subdomain in subdomains:
+            if check_reachable(f"{subdomain}.{target}", timeout):
+                if verbose: typer.echo(f"> {subdomain}.{target} is reachable.")
+                subdomains_reachables.append(f"{subdomain}")
+            else:
+                if verbose: typer.echo(f"> {subdomain}.{target} is not reachable.")
+        subdomains_unreachables = [x for x in subdomains if x not in subdomains_reachables]
+        for x in subdomains_reachables:
+            subdomains_mixed.append((x+"."+target, True))
+        for x in subdomains_unreachables:
+            subdomains_mixed.append((x+"."+target, False))
+        subdomains_mixed.sort()
+        subdomains.clear()
+        subdomains = [x[0][:-len(target)-1] for x in subdomains_mixed if x[1]]
+        typer.echo(f"\n> Found {len(subdomains_reachables)}/{subdomain_quantity} reachable subdomains.") if verbose else ""
+        typer.echo(subdomains) if verbose else ""
     if intitle:
         typer.echo("> Searching for subdomains in title...")
         matching_subdomains = []
