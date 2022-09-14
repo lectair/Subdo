@@ -8,6 +8,8 @@ typer = "*"
 requests = "*"
 beautifulsoup4 = "*"
 rich = "*"
+crtsh = "*"
+tqdm = "*"
 
 [dev-packages]
 
