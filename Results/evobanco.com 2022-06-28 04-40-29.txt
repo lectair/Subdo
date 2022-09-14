@@ -1,5 +1,0 @@
-api
-apidev
-apidevm
-apipriv
-apiuat
