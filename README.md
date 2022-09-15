@@ -98,7 +98,7 @@ If you fix or improve anything send me a pull request and I will gladly accept i
 
 # Author
 
-Made with ❤️ by Lucas Klein for the open-soruce community.
+Made with ❤️ by Lucas Klein for the open-source community.
 
 # License
 
