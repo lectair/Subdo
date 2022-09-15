@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 # Local imports
 from subdo.open_tabs import tab_opener
-from subdo.web_checker import check_reachable, check_intitle, check_inhtml, check_inurl
+from subdo.web_checker import check_reachable, check_intitle, check_inhtml, check_inurl, check_favicon
 from subdo.scraper import scraper_process
 from subdo.file_saver import save_file
 
@@ -23,16 +23,11 @@ app = typer.Typer(add_completion=False)
 console = Console()
 
 
-# IMPORT REMOVED - WEB CHECKERS
-
-# IMPORT REMOVED - BATCH OPENER
-
-
 @app.command()
 def main(target: str = typer.Option(None, help="Target URL."),
          browser: str = typer.Option("chrome", help="The browser to use for opening subdomains in tabs. Options: chrome, opera, edge, ie, epic, custom"),
          browser_executable: Optional[str] = typer.Option(None, help="Provide a custom browser executable if needed."),
-         shodan_cookie: Optional[str] = typer.Option(None, help="The cookie to use for the Shodan scraping. Sometimes not needed."),
+         shodan_cookie: Optional[str] = typer.Option(None, help="The cookie to use for the Shodan scraping. If used only sometimes it's not needed."),
          path_suffix: Optional[str] = typer.Option("", help="The URL path suffix to use.\nExample: /robots.txt -> (google.com/robots.txt)"),
          subdomain_suffix: Optional[str] = typer.Option("", help="The subdomain suffix to use.\nExample: .test -> (subdomain.test.google.com)"),
          check_reachability: bool = typer.Option(False, help="Check if the hosts are reachable. If so, only save and open the reachable ones. If output_format isn't 'txt' the output will save both but will have a column for reachability. WARNING: This will connect to the target and will leak your actual IP."),
@@ -42,11 +37,11 @@ def main(target: str = typer.Option(None, help="Target URL."),
          output_dir: str = typer.Option(os.getcwd(), help="The directory to save the output."),
          batch_size: int = typer.Option(0, help="Open tabs in batch. Set this number to how many tabs you want to open at once."),
          custom_subdomains: str = typer.Option(None, help="Provide a file containing subdomains."),
-         intitle: str = typer.Option(None, help=""),
-         inhtml: str = typer.Option(None, help=""),
-         inurl: str = typer.Option(None, help=""),
-         favicon: str = typer.Option(None, help=""),
-         timeout: int = typer.Option(5, help=""),
+         intitle: str = typer.Option(None, help="Match only subdomains containing provided title."),
+         inhtml: str = typer.Option(None, help="Match only subdomains containing provided string in whole response."),
+         inurl: str = typer.Option(None, help="Match only subdomains containing provided string in URL."),
+         favicon: str = typer.Option(None, help="Match only subdomains with provided favicon hash."),
+         timeout: int = typer.Option(5, help="Set timeout for subdomain requests."),
          #threads: int = typer.Option(1, help=""),
          verbose: int = typer.Option(0, help="The verbosity level.")
          ):
@@ -140,6 +135,7 @@ def main(target: str = typer.Option(None, help="Target URL."),
         table.add_row("In Title", intitle)
         table.add_row("In HTML", inhtml)
         table.add_row("In URL", inurl)
+        table.add_row("Favicon", favicon)
         table.add_row("Timeout", str(timeout))
         #table.add_row("Threads", str(threads))
         table.add_row("Verbosity Level", str(verbose))
@@ -147,10 +143,15 @@ def main(target: str = typer.Option(None, help="Target URL."),
         time.sleep(1)
     if not custom_subdomains:
         # 2º Stage: Scraping subdomains and manipulating them
-        # IMPORT REMOVED - SCRAPER
         subdomains = scraper_process(verbose, shodan_cookie, target)
-    if verbose:
-        typer.echo(f"> Found {len(subdomains)} unique subdomains in total.")
+        if verbose: typer.echo(f"> Found {len(subdomains)} unique subdomains in total.")
+        # Cleaning subdomains
+        cleaned_subdomains = []
+        for subdomain in subdomains:
+            if "@" not in subdomain and " " not in subdomain and "*" not in subdomain and ":" not in subdomain: cleaned_subdomains.append(subdomain)
+        subdomains = cleaned_subdomains
+        del cleaned_subdomains
+        if verbose: typer.echo(f"> {len(subdomains)} unique subdomains in total after cleaning.")
         typer.echo(subdomains)
         print()
     if check_reachability:
@@ -220,6 +221,21 @@ def main(target: str = typer.Option(None, help="Target URL."),
             else:
                 if verbose: tqdm.write(f"> Not found {inurl} in '{subdomain}' URL.")
         typer.echo(f"\n> Found {len(matching_subdomains)}/{len(subdomains)} subdomains containing '{inurl}' in its URL.") if verbose else ""
+        typer.echo(matching_subdomains) if verbose else ""
+        subdomains = matching_subdomains
+        del matching_subdomains
+    if favicon:
+        typer.echo(f"> Searching for subdomains matching '{favicon}' favicon hash...")
+        matching_subdomains = []
+        for subdomain in tqdm(subdomains):
+            favicon_result = check_favicon(f"{subdomain}/{path_suffix}", favicon, verbose, timeout)
+            if favicon_result:
+                if verbose: tqdm.write(f"> Found subdomain '{subdomain}' matching '{favicon}' favicon hash.")
+                matching_subdomains.append(subdomain)
+            else:
+                if verbose: tqdm.write(f"> Subdomain '{subdomain}' not matching '{favicon}' favicon hash.")
+        typer.echo(
+            f"\n> Found {len(matching_subdomains)}/{len(subdomains)} subdomains matching '{favicon}' favicon hash.") if verbose else ""
         typer.echo(matching_subdomains) if verbose else ""
         subdomains = matching_subdomains
         del matching_subdomains

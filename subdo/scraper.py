@@ -69,6 +69,5 @@ def scraper_process(verbose, shodan_cookie, target):
         typer.echo(crt_subdomains)
     # -- Finished scraping
     subdomains = sorted(list(filter(None, list(set(shodan_subdomains + crt_subdomains)))))
-    for subdomain in subdomains:
-        subdomains.remove(subdomain) if "*" in subdomain else ""
+
     return subdomains

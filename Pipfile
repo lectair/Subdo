@@ -10,6 +10,8 @@ beautifulsoup4 = "*"
 rich = "*"
 crtsh = "*"
 tqdm = "*"
+mmh3 = "*"
+Pillow = "*"
 
 [dev-packages]
 
