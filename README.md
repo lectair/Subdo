@@ -39,6 +39,8 @@ Here we search the verizon.com domain for subdomains that contain 'swagger' in t
 
 Here we search the domain sony.com for subdomains containing 'api' in their url. As in the previous example, this can help to find APIs. Then open the results in the epic browser, in batches of 8, useful for when there are too many subdomains to open them all at once.
 
+**Tip:** Replace the cookie in the 'shodan-cookie.txt' file with your own so that you do not need to enter the cookie parameter every time you want to run the program
+
 # Parameters
 **Here are all the available parameters:**
 
