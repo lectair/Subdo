@@ -5,7 +5,7 @@ Subdo is a Pentesting/OSINT software that automates the enumeration, verificatio
 
 # What can you do?
 Subdo allows you to retrieve the subdomains of any website thanks to public DNS records.
-These subdomains can then be saved in different formats or opened in the browser of your choice. You can open them in batches if there are many subdomains, check their accessibility, filter by title, by containing a string in the whole html, by containing a string in its url, by matching the favicon, etc.
+These subdomains can then be saved in different formats or opened in the browser of your choice. You can open them in batches if there are many, check their reachability, filter by title, by containing a string in the whole html, by containing a string in its url, by matching the favicon, etc.
 In total there are 19 parameters you can tweak, see them in the `Parameters` section.
 
 # How it works?
