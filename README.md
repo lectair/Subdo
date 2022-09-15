@@ -34,12 +34,18 @@ Here we search the verizon.com domain for subdomains that contain 'swagger' in t
 
 **Another example command:**
 
-`python3 main.py --target verizon.com --inhtml swagger --save-output --output-format csv`
+`python3 main.py --target sony.com --check-reachability --inurl api --open-tabs --browser epic --batch-size 8 --verbose 2`
 
 
 Here we search the domain sony.com for subdomains containing 'api' in their url. As in the previous example, this can help to find APIs. Then open the results in the epic browser, in batches of 8, useful for when there are too many subdomains to open them all at once.
 
 **Tip:** Replace the cookie in the 'shodan-cookie.txt' file with your own so that you do not need to enter the cookie parameter every time you want to run the program
+
+# Images
+![11_70](https://user-images.githubusercontent.com/59050136/190334512-949d348c-bb05-4fd5-9b5a-2d9594d86189.png)
+![222_70_1_614x](https://user-images.githubusercontent.com/59050136/190334530-93ebace9-642b-40b7-a878-285cbb48c66d.png)  
+![Captura_de_pantalla_2022-09-15_085312_614x](https://user-images.githubusercontent.com/59050136/190335282-19350477-33d6-4ba6-b543-d6d1deac3f76.png)
+
 
 # Parameters
 **Here are all the available parameters:**
