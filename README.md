@@ -18,7 +18,7 @@ Before using this tool you have to install the requirements.
 `pip install -r requirements.txt`
 
 ## Usage
-Subdo is a Typer-based tool, so it is an interactive tool. You can see all available parameters by entering the following:
+Subdo is a [Typer](https://typer.tiangolo.com/) based tool, so it's an interactive tool. You can see all available parameters by entering the following:
 
 `python3 main.py --help`
 
