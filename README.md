@@ -41,7 +41,7 @@ Here we search the domain sony.com for subdomains containing 'api' in their url.
 
 **Tip:** Replace the cookie in the 'shodan-cookie.txt' file with your own so that you do not need to enter the cookie parameter every time you want to run the program
 
-# Images
+# Screenshots
 ![11_70](https://user-images.githubusercontent.com/59050136/190334512-949d348c-bb05-4fd5-9b5a-2d9594d86189.png)
 ![222_70_1_614x](https://user-images.githubusercontent.com/59050136/190334530-93ebace9-642b-40b7-a878-285cbb48c66d.png)  
 ![Captura_de_pantalla_2022-09-15_085312_614x](https://user-images.githubusercontent.com/59050136/190335282-19350477-33d6-4ba6-b543-d6d1deac3f76.png)
