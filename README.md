@@ -3,12 +3,12 @@
 # Subdo
 Subdo is a Pentesting/OSINT software that automates the enumeration, verification and analysis of subdomains, using public registries such as Shodan or crt.sh.
 
-# What can you do?
+## What can you do?
 Subdo allows you to retrieve the subdomains of any website thanks to public DNS records.
 These subdomains can then be saved in different formats or opened in the browser of your choice. You can open them in batches if there are many, check their reachability, filter by title, by containing a string in the whole html, by containing a string in its url, by matching the favicon, etc.
 In total there are 19 parameters you can tweak, see them in the `Parameters` section.
 
-# How it works?
+## How it works?
 Subdo obtains this data, for the moment, from two different sources: Shodan (needs a free API key if you make a lot of requests) and Crt.sh.
 
 # Getting Started
